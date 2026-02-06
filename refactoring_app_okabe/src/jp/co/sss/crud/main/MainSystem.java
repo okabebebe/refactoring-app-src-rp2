@@ -33,8 +33,8 @@ public class MainSystem {
 
 		do {
 			// メニューの表示
-			System.out.println(ConstantMsg.msgMenuDisplay);
-			System.out.print(ConstantMsg.msgChoiceMenu);
+			System.out.println(ConstantMsg.MSG_MENU);
+			System.out.print(ConstantMsg.MSG_INP_MENU);
 
 			// メニュー番号の入力
 			String menuNoStr = br.readLine();
@@ -49,7 +49,7 @@ public class MainSystem {
 
 			case 2:
 				// 社員名検索
-				System.out.print(ConstantMsg.msgEmpName);
+				System.out.print(ConstantMsg.LBL_EMP_NAME);
 
 				// 検索機能の呼出
 				DBController.findByEmpName();
@@ -57,7 +57,7 @@ public class MainSystem {
 
 			case 3:
 				// 検索する部署IDを入力
-				System.out.print(ConstantMsg.msgInputDeptId);
+				System.out.print(ConstantMsg.MSG_INP_DEPT_Id);
 				String searchDeptId = br.readLine();
 
 				// 検索機能の呼出
@@ -66,13 +66,13 @@ public class MainSystem {
 
 			case 4:
 				// 登録する値を入力
-				System.out.print(ConstantMsg.msgEmpName);
+				System.out.print(ConstantMsg.LBL_EMP_NAME);
 				String emp_name = br.readLine();
-				System.out.print(ConstantMsg.msgGender);
+				System.out.print(ConstantMsg.LBL_GENDER);
 				String gender = br.readLine();
-				System.out.print(ConstantMsg.msgBirthday);
+				System.out.print(ConstantMsg.LBL_BIRTHDAY);
 				String birthday = br.readLine();
-				System.out.print(ConstantMsg.msgDeptId);
+				System.out.print(ConstantMsg.LBL_DEPT_ID);
 				String deptId = br.readLine();
 
 				// 登録機能の呼出
@@ -81,7 +81,7 @@ public class MainSystem {
 
 			case 5:
 				// 更新する社員IDを入力
-				System.out.print(ConstantMsg.msgInpuEmpId);
+				System.out.print(ConstantMsg.MSG_INP_EMP_ID);
 
 				// 更新する値を入力する
 				String updateEmpId = br.readLine();
@@ -89,20 +89,20 @@ public class MainSystem {
 
 				// 更新機能の呼出
 				DBController.update(updateEmpId);
-				System.out.println(ConstantMsg.msgUpdateEmpDate);
+				System.out.println(ConstantMsg.MSG_UPD_EMP_DATA);
 
 				break;
 
 			case 6:
 				// 削除する社員IDを入力
-				System.out.print(ConstantMsg.msgDeleteEmpId);
+				System.out.print(ConstantMsg.MSG_DEL_EMP_ID);
 
 				// 削除機能の呼出
 				DBController.delete();
 				break;
 
 			}
-		} while (menuNo != ConstantValue.menuExitNum);
-		System.out.println(ConstantMsg.msgSystemExit);
+		} while (menuNo != ConstantValue.CD_EXIT);
+		System.out.println(ConstantMsg.MSG_SYS_EXIT);
 	}
 }
