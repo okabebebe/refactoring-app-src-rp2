@@ -24,6 +24,8 @@ public class ConstantMsg {
 	
 	public static final String MSG_INP_MENU		   = "メニュー番号を入力してください：";
 
+	public static final String MSG_INP_NAME        ="社員名を入力してください:";
+	
 	public static final String LBL_EMP_NAME		   = "社員名:";
 
 	public static final String LBL_BIRTHDAY		   = "生年月日(西暦年/月/日):";
@@ -64,4 +66,8 @@ public class ConstantMsg {
 	public static final String MSG_INSERT_EMP_DATA = "社員情報を登録しました";
 	
 	public static final String MSG_DEL_EMP_DATA	   = "社員情報を削除しました";	
+	
+	
+	public static final String MSG_ERROR ="システムエラーが発生しました";	
+
 }
