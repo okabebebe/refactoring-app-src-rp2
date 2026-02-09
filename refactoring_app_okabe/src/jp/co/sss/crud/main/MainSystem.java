@@ -1,13 +1,13 @@
 package jp.co.sss.crud.main;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.sql.SQLException;
 import java.text.ParseException;
 
-import jp.co.sss.crud.db.DBController;
-import jp.co.sss.crud.util.ConstantMsg;
+import jp.co.sss.crud.exception.SystemErrorException;
+import jp.co.sss.crud.io.ConsoleWriter;
+import jp.co.sss.crud.io.MenuNoReader;
+import jp.co.sss.crud.service.IEmployeeService;
 import jp.co.sss.crud.util.ConstantValue;
 
 /**
@@ -18,6 +18,8 @@ import jp.co.sss.crud.util.ConstantValue;
  *
  */
 public class MainSystem {
+	
+	
 	/**
 	 * 社員管理システムを起動
 	 *
@@ -26,83 +28,67 @@ public class MainSystem {
 	 * @throws ClassNotFoundException 
 	 * @throws ParseException 
 	 */
-	public static void main(String[] args) throws IOException, ClassNotFoundException, SQLException, ParseException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
-		int menuNo = 0;
-
-		do {
+	
+	public static void main(String[] args) throws IOException, ClassNotFoundException, SQLException, ParseException{
+	
+	int menuNo = 0;
+	IEmployeeService employeeService;
+	
+	do {
+		try {
 			// メニューの表示
-			System.out.println(ConstantMsg.MSG_MENU);
-			System.out.print(ConstantMsg.MSG_INP_MENU);
-
+			ConsoleWriter.showMenu();
+			
 			// メニュー番号の入力
-			String menuNoStr = br.readLine();
-			menuNo = Integer.parseInt(menuNoStr);
-
+			menuNo = MenuNoReader.InputMenuNo();
+			
 			// 機能の呼出
 			switch (menuNo) {
+			
+			// 全件表示機能
 			case 1:
-				// 全件表示機能の呼出
-				DBController.findAll();
+				employeeService = IEmployeeService.getInstanceByMenuNo(menuNo);
+				employeeService.execute();
 				break;
 
+			// 社員名検索
 			case 2:
-				// 社員名検索
-				System.out.print(ConstantMsg.LBL_EMP_NAME);
-
-				// 検索機能の呼出
-				DBController.findByEmpName();
+				employeeService = IEmployeeService.getInstanceByMenuNo(menuNo);
+				employeeService.execute();
 				break;
 
-			case 3:
-				// 検索する部署IDを入力
-				System.out.print(ConstantMsg.MSG_INP_DEPT_Id);
-				String searchDeptId = br.readLine();
-
-				// 検索機能の呼出
-				DBController.findByDeptId(searchDeptId);
+			// 部署ID検索
+			case 3:				
+				employeeService = IEmployeeService.getInstanceByMenuNo(menuNo);
+				employeeService.execute();
 				break;
 
+			// 登録機能
 			case 4:
-				// 登録する値を入力
-				System.out.print(ConstantMsg.LBL_EMP_NAME);
-				String emp_name = br.readLine();
-				System.out.print(ConstantMsg.LBL_GENDER);
-				String gender = br.readLine();
-				System.out.print(ConstantMsg.LBL_BIRTHDAY);
-				String birthday = br.readLine();
-				System.out.print(ConstantMsg.LBL_DEPT_ID);
-				String deptId = br.readLine();
-
-				// 登録機能の呼出
-				DBController.insert(emp_name, gender, birthday, deptId);
+				employeeService = IEmployeeService.getInstanceByMenuNo(menuNo);
+				employeeService.execute();
 				break;
 
+			// 更新機能
 			case 5:
-				// 更新する社員IDを入力
-				System.out.print(ConstantMsg.MSG_INP_EMP_ID);
-
-				// 更新する値を入力する
-				String updateEmpId = br.readLine();
-				Integer.parseInt(updateEmpId);
-
-				// 更新機能の呼出
-				DBController.update(updateEmpId);
-				System.out.println(ConstantMsg.MSG_UPD_EMP_DATA);
-
+				employeeService = IEmployeeService.getInstanceByMenuNo(menuNo);
+				employeeService.execute();
 				break;
 
+			// 削除機能
 			case 6:
-				// 削除する社員IDを入力
-				System.out.print(ConstantMsg.MSG_DEL_EMP_ID);
-
-				// 削除機能の呼出
-				DBController.delete();
+				employeeService = IEmployeeService.getInstanceByMenuNo(menuNo);
+				employeeService.execute();
 				break;
-
 			}
-		} while (menuNo != ConstantValue.CD_EXIT);
-		System.out.println(ConstantMsg.MSG_SYS_EXIT);
+		} catch (SystemErrorException e) {
+			e.printStackTrace();
+			break;
+		}
+		
+		//システム終了
+	} while (menuNo != ConstantValue.CD_EXIT);
+	MenuNoReader.Close();
 	}
 }
+	
